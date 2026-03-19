@@ -1,11 +1,9 @@
 -- [[ CONFIGURATION OWNER GALHUB ]] --
 local _G = getgenv and getgenv() or _G
-_G.MyID = 13112011 -- << ID KAMU SUDAH TERPASANG!
+_G.MyID = 13112011 
 _G.LogoID = "rbxassetid://1001397244"
 
--- ==========================================
---        1. INTRO ANIMATION
--- ==========================================
+-- 1. INTRO ANIMATION
 local TS = game:GetService("TweenService")
 local IG = Instance.new("ScreenGui", game:GetService("CoreGui"))
 local Bg = Instance.new("Frame", IG)
@@ -19,9 +17,7 @@ TS:Create(Bg, TweenInfo.new(1), {BackgroundTransparency = 1}):Play()
 TS:Create(Txt, TweenInfo.new(1), {TextTransparency = 1}):Play()
 task.wait(1.2); IG:Destroy()
 
--- ==========================================
---        2. OVERHEAD TITLE SYSTEM
--- ==========================================
+-- 2. OVERHEAD TITLE SYSTEM
 local function CreateOwnerTitle(plr)
     local char = plr.Character or plr.CharacterAdded:Wait()
     local head = char:WaitForChild("Head")
@@ -42,9 +38,7 @@ if game.Players.LocalPlayer.UserId == _G.MyID then
     game.Players.LocalPlayer.CharacterAdded:Connect(function() task.wait(1); CreateOwnerTitle(game.Players.LocalPlayer) end)
 end
 
--- ==========================================
---        3. MAIN UI (GALHUB ENGINE)
--- ==========================================
+-- 3. MAIN UI
 local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/GrexXMeng/Mengs/refs/heads/main/library"))()
 local Win = Lib:CreateWindow("GalHub", "v1.0.0", Enum.KeyCode.RightControl)
 
@@ -53,21 +47,12 @@ Main:CreateToggle("Auto Cast & Shake", function(s) _G.AutoF = s end)
 Main:CreateToggle("Auto Sell All", function(s) _G.ASell = s end)
 
 local Misc = Win:CreateTab("MISCH")
-Misc:CreateSlider("Walkspeed", 16, 300, 16, function(v) game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v end)
+Misc:CreateSlider("Walkspeed", 16, 300, 16, function(v) pcall(function() game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v end) end)
 
 local Cfg = Win:CreateTab("CONFIG")
 if game.Players.LocalPlayer.UserId == _G.MyID then
     Cfg:CreateLabel("STATUS: 👑 OWNER (PREMIUM)")
     Lib:Notify("WELCOME", "Halo Sultan GalHub! Status Owner Aktif.", 5)
-else
-    Cfg:CreateLabel("STATUS: 🆓 FREE USER")
-end
-
-Lib:Notify("GalHub Loaded", "Selamat Datang di Fisch Sultan Edition!", 5)
-
-Cfg:CreateLabel("--- SECURITY STATUS ---")
-if game.Players.LocalPlayer.UserId == _G.MyID then
-    Cfg:CreateLabel("STATUS: 👑 OWNER (PREMIUM)")
 else
     Cfg:CreateLabel("STATUS: 🆓 FREE USER")
 end
